@@ -16,15 +16,15 @@ def tr(d,xy,t,f,fill,sp=0,anchor='c'):
         d.text((x,xy[1]),c,font=f,fill=fill); x+=d.textlength(c,font=f)+sp
     return w
 
-def load(src,mode):
+def load(src,mode,vpos=1.0,sidemode='reflect'):
     im=Image.open(src).convert('RGB')
     if mode=='pad':   # portraits: scale down, reflect sides, replicate top
         s=0.84; w=int(1080*s); h=int(1350*s)
         p=im.resize((w,h),Image.LANCZOS)
         a=np.array(p); side=(1080-w)//2
-        a=np.pad(a,((0,0),(side,1080-w-side),(0,0)),mode='reflect')
-        top=1350-h
-        a=np.pad(a,((top,0),(0,0),(0,0)),mode='edge')
+        a=np.pad(a,((0,0),(side,1080-w-side),(0,0)),mode=sidemode)
+        top=int((1350-h)*vpos)
+        a=np.pad(a,((top,1350-h-top),(0,0),(0,0)),mode='edge')
         return Image.fromarray(a)
     return im.resize((W,H),Image.LANCZOS)
 
@@ -40,7 +40,7 @@ def grad(h,a0,a1,color,up=False):
     return g
 
 def build(spec):
-    im=load(spec['src'],spec.get('layout','full'))
+    im=load(spec['src'],spec.get('layout','full'),spec.get('vpos',1.0),spec.get('sidemode','reflect'))
     base=im.convert('RGBA')
     bl=lum(im,(0,H-340,W,H)); tl=lum(im,(0,0,W,330))
     bdark=bl<135; tdark=tl<135
@@ -119,8 +119,8 @@ S=[
  dict(name='bf2_mtA_daily',src=RAW+'n2b.png',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,**BF),
  dict(name='bf2_mtB_supply',src=RAW+'n2b.png',head=["YOUR NEXT 2½ MONTHS","OF SKINCARE. SORTED."],foot="80 WIPES · 70¢ PER WIPE · FREE SHIPPING",qual=DAILY,**BF),
  dict(name='bf2_mtC_straight',src=RAW+'n2b.png',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98'),
- dict(name='bf2_c3a_fourpack_ivory',src=RAW+'n3a.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
- dict(name='bf2_c3b_fourpack_sage',src=RAW+'n3b.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
+ dict(name='bf2_c3a_fourpack_ivory',vpos=0.5,sidemode='edge',src=RAW+'n3a.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
+ dict(name='bf2_c3b_fourpack_sage',vpos=0.5,sidemode='edge',src=RAW+'n3b.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
  dict(name='bf2_c4a_keepgift_warm',src=RAW+'n4a.png',head=["KEEP TWO.","GIFT TWO."],support="JUST 70¢ PER WIPE",foot="80 WIPES · FREE SHIPPING",**BF),
  dict(name='bf2_c4b_keepgift_green',src=RAW+'n4b.png',head=["KEEP TWO.","GIFT TWO."],support="JUST 70¢ PER WIPE",foot="80 WIPES · FREE SHIPPING",**BF),
  dict(name='bf2_sub1_hero',src=RAW+'n2a.png',head=["30% OFF","EVERY BOX."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
