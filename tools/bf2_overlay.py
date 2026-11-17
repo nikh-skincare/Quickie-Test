@@ -46,7 +46,7 @@ def build(spec):
     bdark=bl<135; tdark=tl<135
     # scrims
     bc=INK if bdark else IVORY
-    base.alpha_composite(grad(360,0.0,0.88,bc),(0,H-360))
+    base.alpha_composite(grad(360,0.0,spec.get('scrim',0.88),bc),(0,H-360))
     topc=INK if tdark else IVORY
     t=grad(300,0.0,0.5,topc); t=t.transpose(Image.FLIP_TOP_BOTTOM)
     base.alpha_composite(t,(0,0))
@@ -113,22 +113,22 @@ BF=dict(old='$111.96',new='$55.98',badge='BUY2')
 SUB=dict(old='$27.99',new='$19.59',suffix='/MO',badge='SUB')
 DAILY="Based on one wipe daily."
 S=[
- dict(name='bf2_c1a_towel_ivory',src=RAW+'n1c.png',layout='pad',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,bpos=(900,520),**BF),
- dict(name='bf2_c1b_towel_green',src=RAW+'n1d.png',layout='pad',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,bpos=(900,520),**BF),
+ dict(name='bf2_c1a_towel_ivory',scrim=0.0,src=RAW+'n1c.png',layout='pad',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,bpos=(900,520),**BF),
+ dict(name='bf2_c1b_towel_green',scrim=0.0,src=RAW+'n1d.png',layout='pad',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,bpos=(900,520),**BF),
  dict(name='bf2_c2_spa_hero',src=RAW+'n2a.png',head=["80 DAYS.","70¢ A DAY."],foot="4 BOXES · 80 WIPES · FREE SHIPPING",qual=DAILY,**BF),
  dict(name='bf2_mtA_daily',src=RAW+'n2b.png',head=["SKINCARE FOR","70¢ A DAY."],foot="80 WIPES · FREE SHIPPING",qual=DAILY,**BF),
  dict(name='bf2_mtB_supply',src=RAW+'n2b.png',head=["YOUR NEXT 2½ MONTHS","OF SKINCARE. SORTED."],foot="80 WIPES · 70¢ PER WIPE · FREE SHIPPING",qual=DAILY,**BF),
  dict(name='bf2_mtC_straight',src=RAW+'n2b.png',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98'),
- dict(name='bf2_c3a_fourpack_ivory',src=RAW+'n3a.png',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
- dict(name='bf2_c3b_fourpack_sage',src=RAW+'n3b.png',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
+ dict(name='bf2_c3a_fourpack_ivory',src=RAW+'n3a.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
+ dict(name='bf2_c3b_fourpack_sage',src=RAW+'n3b.png',layout='pad',head=["BUY 2.","GET 2 FREE."],support="JUST 70¢ PER WIPE",foot="4 BOXES · 80 WIPES · FREE SHIPPING",old='$111.96',new='$55.98',hmax=120),
  dict(name='bf2_c4a_keepgift_warm',src=RAW+'n4a.png',head=["KEEP TWO.","GIFT TWO."],support="JUST 70¢ PER WIPE",foot="80 WIPES · FREE SHIPPING",**BF),
  dict(name='bf2_c4b_keepgift_green',src=RAW+'n4b.png',head=["KEEP TWO.","GIFT TWO."],support="JUST 70¢ PER WIPE",foot="80 WIPES · FREE SHIPPING",**BF),
  dict(name='bf2_sub1_hero',src=RAW+'n2a.png',head=["30% OFF","EVERY BOX."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
  dict(name='bf2_sub2_carton',src=RAW+'s1.png',head=["ON REPEAT.","30% OFF."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
  dict(name='bf2_sub3_shelf',src=RAW+'s2.png',head=["YOUR QUICKIE,","EVERY MONTH."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
- dict(name='bf2_sub4_towel',src=RAW+'n1d.png',layout='pad',head=["SUBSCRIBE.","SAVE 30%."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",bpos=(900,520),**SUB),
- dict(name='bf2_sub5_everywhere',src=BFD+'bf_m4_v1.png',head=["30% OFF","EVERY BOX."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
- dict(name='bf2_sub6_everywhere2',src=BFD+'bf_m4.png',head=["NEVER","RUN OUT."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
+ dict(name='bf2_sub4_towel',scrim=0.0,src=RAW+'n1d.png',layout='pad',head=["SUBSCRIBE.","SAVE 30%."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",bpos=(900,520),**SUB),
+ dict(name='bf2_sub5_towel_ivory',src=RAW+'n1c.png',layout='pad',scrim=0.0,head=["SKINCARE ON","AUTOPILOT."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",bpos=(900,520),**SUB),
+ dict(name='bf2_sub6_hero_dark',src=RAW+'n2b.png',head=["30% OFF","EVERY BOX."],foot="20 WIPES · DELIVERED MONTHLY · + SHIPPING",qual="Subscription price per box. Shipping extra.",label="BLACK FRIDAY · SUBSCRIBE & SAVE",**SUB),
 ]
 only=sys.argv[1:]
 for s in S:
